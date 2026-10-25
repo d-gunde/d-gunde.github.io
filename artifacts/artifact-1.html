@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Request Helper: An AI Intake Assistant | Deeksha Gunde</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="artifact-header">
+  <div class="container">
+    <a class="back" href="../index.html#artifacts">← Back to Portfolio</a>
+    <h1>Data Request Helper: An AI Intake Assistant for Analytics Teams</h1>
+    <p>AIML-500 · Workshop 1 · AI Lab · October 2026</p>
+  </div>
+</header>
+
+<main class="artifact-body">
+  <div class="container">
+
+    <div class="artifact-visual">
+      <img src="../assets/img/drh-summary.png" alt="The Data Request Helper chatbot showing a completed data request summary with purpose, metric, time period, calendar type, breakdowns, audience, format, and deadline">
+    </div>
+    <p class="artifact-links">
+      <a class="btn btn-dark" href="https://www.chatbase.co/preview/f4291_Em6m_juFsEC5ohi?channel=chat-widget" target="_blank" rel="noopener">Try the chatbot</a>
+    </p>
+
+    <div class="field">
+      <h2>Introduction</h2>
+      <p>
+        Every analytics team knows this message: "Can I get the sales numbers?" It looks simple, but it
+        leaves out what the data is for, which time period, which calendar, and who will use it. The
+        analytics engineer then spends days going back and forth, and sometimes builds the wrong thing.
+        I built an AI assistant that fixes this at the start, before any work begins.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>Description</h2>
+      <p>
+        The Data Request Helper is a working chatbot built on Chatbase. A business user describes what they
+        need in plain words, and the bot asks short follow-up questions, one at a time, starting with
+        <em>why</em> they need the data. When it has everything, it produces a clean
+        <strong>Data Request Summary</strong> the user can send straight to the analytics team. It explains
+        data terms in simple language, refuses personal information, and never promises deadlines.
+      </p>
+      <p>On this page you will find the design process, the test results, before-and-after fixes, and the full bot instructions, which you can reuse for your own team.</p>
+    </div>
+
+    <div class="field">
+      <h2>Objective</h2>
+      <p>
+        I wanted to show how generative AI can solve a real, everyday problem in data work, not just answer
+        questions. My goal was to use design thinking to build an assistant that business users would
+        actually find easier than a form, and that analytics teams could trust to collect complete requests.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>Process</h2>
+      <p>I followed the five phases of design thinking.</p>
+      <ol>
+        <li>
+          <strong>Empathize.</strong> I started from my own experience. On a demand planning project for a retail
+          client, our data feeds did not match the business team's reports because we used a different fiscal
+          calendar, a detail no one had asked about at the start. I also analyzed a sample of 40 data requests
+          with ChatGPT's Data Analyst GPT:
+          <div class="stats">
+            <div class="stat"><b>2.9×</b><span>longer delivery for incomplete requests (7.05 vs. 2.41 days)</span></div>
+            <div class="stat"><b>10×</b><span>more follow-up questions (4.38 vs. 0.42)</span></div>
+            <div class="stat"><b>57% vs. 0%</b><span>of requests needing rework</span></div>
+          </div>
+          <p style="font-size:.85rem;color:var(--muted);margin-top:6px;">Sample data was fictional, created for this exercise.</p>
+        </li>
+        <li>
+          <strong>Define.</strong> <em>How might we help non-technical business users describe their data needs
+          clearly, so analytics teams can deliver the right data faster with fewer follow-up questions?</em>
+        </li>
+        <li>
+          <strong>Ideate.</strong> I compared a longer request form, a template document, an AI that builds reports
+          automatically, and a conversational assistant. The assistant scored highest on impact, feasibility, and
+          user value, because a conversation adapts to each request and asks for the purpose first.
+        </li>
+        <li>
+          <strong>Prototype.</strong> I wrote the bot's instructions (an 8-step flow, a summary format, and rules),
+          added a knowledge source with a request checklist and plain-language definitions, and set a custom
+          welcome message. I did not upload any real data.
+        </li>
+        <li>
+          <strong>Test and iterate.</strong> I ran 10 test scenarios, found two gaps, changed the instructions,
+          and retested until every scenario passed.
+        </li>
+      </ol>
+
+      <h3 style="color:var(--navy);margin-top:26px;">Test results</h3>
+      <div class="table-wrap">
+        <table class="result-table">
+          <tr><th>Scenario</th><th>What the bot did</th><th>Result</th></tr>
+          <tr><td>Normal request</td><td>Asked the purpose first, collected all 8 details in order, produced a clean summary</td><td class="pass">Pass</td></tr>
+          <tr><td>Vague user ("I just need some numbers")</td><td>Stayed friendly and asked for the purpose with two examples</td><td class="pass">Pass</td></tr>
+          <tr><td>Calendar check</td><td>Asked whether to follow the fiscal or standard calendar</td><td class="pass">Pass</td></tr>
+          <tr><td>Sensitive data</td><td>Refused the customer email and did not repeat it</td><td class="pass">Pass after fix</td></tr>
+          <tr><td>Deadline promise</td><td>Explained the analytics team sets timelines, offered to note the deadline</td><td class="pass">Pass</td></tr>
+          <tr><td>Off-topic question</td><td>Politely redirected to the data request</td><td class="pass">Pass</td></tr>
+          <tr><td>Technical term</td><td>Explained "dimension" with a simple example</td><td class="pass">Pass</td></tr>
+          <tr><td>SQL request</td><td>Explained it does not write code or access data</td><td class="pass">Pass</td></tr>
+          <tr><td>Correction</td><td>Changed only the requested field in the summary</td><td class="pass">Pass</td></tr>
+          <tr><td>Detailed request in one message</td><td>Skipped answered questions and asked only what was missing</td><td class="pass">Pass after fix</td></tr>
+        </table>
+      </div>
+
+      <h3 style="color:var(--navy);margin-top:26px;">Before and after: two fixes</h3>
+      <p><strong>Privacy wording.</strong> The first version opened with "Thanks for sharing" when a user pasted a customer email. I added a rule to lead with a clear privacy message instead.</p>
+      <div class="shots ba">
+        <figure><img src="../assets/img/drh-privacy-before.png" alt="Before: bot replies Thanks for sharing, but please do not include personal details"><figcaption>Before</figcaption></figure>
+        <figure><img src="../assets/img/drh-privacy-after.png" alt="After: bot replies For privacy, please do not share personal details"><figcaption>After</figcaption></figure>
+      </div>
+      <p><strong>No repeat questions.</strong> When a user wrote "fiscal 2026," the bot still asked which calendar to use. I added a rule to confirm details the user already gave instead of asking again.</p>
+      <div class="shots ba">
+        <figure><img src="../assets/img/drh-detailed-before.png" alt="Before: bot asks fiscal or standard calendar even though the user wrote fiscal 2026"><figcaption>Before</figcaption></figure>
+        <figure><img src="../assets/img/drh-detailed-after.png" alt="After: bot fills in fiscal calendar and asks only for the reason for the deadline"><figcaption>After</figcaption></figure>
+      </div>
+
+      <h3 style="color:var(--navy);margin-top:26px;">More from testing</h3>
+      <div class="shots">
+        <figure><img src="../assets/img/drh-start.png" alt="Bot asks for business purpose after a request for sales data"><figcaption>Starts with the "why"</figcaption></figure>
+        <figure><img src="../assets/img/drh-term.png" alt="Bot explains what a dimension is"><figcaption>Explains data terms simply</figcaption></figure>
+        <figure><img src="../assets/img/drh-deadline.png" alt="Bot declines to guarantee a Friday deadline"><figcaption>Never promises deadlines</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Tools and Technologies Used</h2>
+      <div class="tags">
+        <span class="tag">Chatbase</span>
+        <span class="tag">Large language model (NLP)</span>
+        <span class="tag">ChatGPT Data Analyst GPT</span>
+        <span class="tag">Design thinking</span>
+        <span class="tag">Prompt engineering</span>
+        <span class="tag">Claude (planning support)</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Value Proposition</h2>
+      <div class="vp-box">
+        This assistant gives analytics teams a ready-to-use way to collect complete data requests the first
+        time, cutting back-and-forth, rework, and mismatched numbers, while giving business users a friendly
+        way to ask for data without knowing technical terms.
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Unique Value</h2>
+      <p>
+        Most chatbot demos are built by people looking at the problem from the outside. I built this one from the
+        inside: I am the analytics engineer who receives these requests. That is why the bot asks about the fiscal
+        calendar, a detail that broke a real project for me, and why it starts with business purpose rather than
+        technical fields. It is also designed responsibly from the start, with no real data, a refusal of personal
+        information, and no promises it cannot keep.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>Relevance</h2>
+      <p>
+        Any team that handles data requests can use this pattern, whether they work in a ticketing tool, a Slack
+        channel, or a shared inbox. The instructions below can be adapted for other intake processes, such as
+        dashboard change requests or data access requests. It also shows a practical, low-risk first step for
+        bringing AI into a workplace: start with a narrow, well-defined task and test it carefully.
+      </p>
+      <details>
+        <summary>View the bot's instructions (reuse and adapt them)</summary>
+<pre>You are the Data Request Helper. You help business users write clear, complete data
+requests for an analytics team. Use simple, friendly language and ask ONE question at a time.
+
+Ask these in order, skipping any the user already answered:
+1. Business purpose
+2. Metric needed
+3. Time period
+4. Fiscal or standard calendar
+5. Filters or breakdowns (region, product, store)
+6. Who will use it and how
+7. Format: dashboard, report, or data extract
+8. Deadline and why
+
+Then show a DATA REQUEST SUMMARY with all 8 items and ask "Does this look correct?"
+Fix only the parts the user corrects.
+
+Rules:
+- Never accept personal data like names, emails, or passwords. If shared, start with
+  "For privacy, please do not share personal details." Do not thank them for sharing it.
+- If the user already states the calendar type, do not ask again. Confirm it in the summary.
+- Never promise deadlines or confirm data exists. Do not write SQL.
+- Politely redirect off-topic questions.
+- If unsure about a definition, tell the user to confirm with the analytics team.</pre>
+      </details>
+    </div>
+
+    <div class="field">
+      <h2>References</h2>
+      <ul>
+        <li>Brown, T. (2008). Design thinking. <em>Harvard Business Review, 86</em>(6), 84–92.</li>
+        <li>Chatbase. (2026). <em>Chatbase</em> [AI agent builder]. <a href="https://www.chatbase.co">https://www.chatbase.co</a></li>
+        <li>Chatbase. (n.d.). <em>Privacy statement</em>. Retrieved October 24, 2026, from <a href="https://www.chatbase.co/privacy">https://www.chatbase.co/privacy</a></li>
+        <li>OpenAI. (2026). <em>Data Analyst</em> [Custom GPT]. <a href="https://chatgpt.com/gpts">https://chatgpt.com/gpts</a></li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+<footer>© 2026 Deeksha Gunde</footer>
+
+</body>
+</html>
