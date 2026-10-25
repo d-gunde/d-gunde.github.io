@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dbt Cloud Artifacts Pipeline | Deeksha Gunde</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<!--
+  PROFESSIONAL PROJECT (outside coursework, not one of the 5 graded artifacts).
+  Keep it general: no company names, data, or internal details.
+  Copy this file to project-2.html for the next project.
+-->
+
+<header class="artifact-header">
+  <div class="container">
+    <a class="back" href="../index.html#projects">← Back to Portfolio</a>
+    <h1>dbt Cloud Artifacts Pipeline</h1>
+    <p>Professional Project · Data Engineering</p>
+  </div>
+</header>
+
+<main class="artifact-body">
+  <div class="container">
+
+    <div class="diagram">
+      <svg viewBox="0 0 960 250" role="img" aria-label="Architecture: a scheduled AWS Step Functions workflow invokes a Lambda that starts a dbt Cloud job; when the job completes, a dbt Cloud webhook triggers a second Lambda that fetches the job artifacts and stores them in AWS; all AWS resources are managed with Terraform.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0f1e33"/></marker>
+        </defs>
+        <rect x="0" y="0" width="960" height="250" fill="#ffffff"/>
+        <g font-family="Inter, Arial, sans-serif" font-size="14" text-anchor="middle">
+          <rect x="20" y="40" width="160" height="64" rx="10" fill="#ecfdf5" stroke="#0d9488"/>
+          <text x="100" y="68" fill="#0f1e33" font-weight="700">Step Functions</text>
+          <text x="100" y="88" fill="#475569">scheduled run</text>
+
+          <rect x="250" y="40" width="160" height="64" rx="10" fill="#ecfdf5" stroke="#0d9488"/>
+          <text x="330" y="68" fill="#0f1e33" font-weight="700">Lambda</text>
+          <text x="330" y="88" fill="#475569">trigger dbt job</text>
+
+          <rect x="480" y="40" width="160" height="64" rx="10" fill="#f1f5f9" stroke="#0f1e33"/>
+          <text x="560" y="68" fill="#0f1e33" font-weight="700">dbt Cloud job</text>
+          <text x="560" y="88" fill="#475569">models and tests</text>
+
+          <rect x="480" y="160" width="160" height="64" rx="10" fill="#f1f5f9" stroke="#0f1e33"/>
+          <text x="560" y="188" fill="#0f1e33" font-weight="700">Webhook</text>
+          <text x="560" y="208" fill="#475569">on job completion</text>
+
+          <rect x="250" y="160" width="160" height="64" rx="10" fill="#ecfdf5" stroke="#0d9488"/>
+          <text x="330" y="188" fill="#0f1e33" font-weight="700">Lambda</text>
+          <text x="330" y="208" fill="#475569">fetch artifacts</text>
+
+          <rect x="20" y="160" width="160" height="64" rx="10" fill="#ecfdf5" stroke="#0d9488"/>
+          <text x="100" y="188" fill="#0f1e33" font-weight="700">AWS storage</text>
+          <text x="100" y="208" fill="#475569">run history, lineage</text>
+
+          <rect x="720" y="100" width="220" height="64" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="5 4"/>
+          <text x="830" y="128" fill="#0f1e33" font-weight="700">Terraform</text>
+          <text x="830" y="148" fill="#475569">manages all AWS resources</text>
+        </g>
+        <g stroke="#0f1e33" stroke-width="2" fill="none" marker-end="url(#ar)">
+          <line x1="180" y1="72" x2="246" y2="72"/>
+          <line x1="410" y1="72" x2="476" y2="72"/>
+          <line x1="560" y1="104" x2="560" y2="156"/>
+          <line x1="480" y1="192" x2="414" y2="192"/>
+          <line x1="250" y1="192" x2="184" y2="192"/>
+        </g>
+      </svg>
+    </div>
+    <p class="artifact-links" style="color:var(--muted);font-size:.9rem;">Simplified architecture. Names and internal details are generalized.</p>
+
+    <div class="field">
+      <h2>Overview</h2>
+      <p>
+        An event-driven pipeline that automatically saves dbt Cloud job artifacts in AWS after every scheduled
+        run. It gives the data team a lasting record of which models ran, which tests passed or failed, and how
+        models depend on each other, without anyone downloading files by hand.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>The Problem</h2>
+      <p>
+        Our dbt jobs were started on a schedule from AWS, but once a job finished, AWS had no built-in way to
+        know it was done. The run results, test outcomes, and lineage metadata stayed inside dbt Cloud, which
+        made it hard to monitor runs over time or investigate failures later.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>My Approach</h2>
+      <ol>
+        <li><strong>Scheduled trigger.</strong> An AWS Step Functions workflow runs on a schedule and calls a Lambda function that starts the dbt Cloud job.</li>
+        <li><strong>Event-driven completion.</strong> Instead of polling dbt Cloud to check whether the job was done, I set up a dbt Cloud webhook that fires when the job completes.</li>
+        <li><strong>Artifact capture.</strong> The webhook triggers a second Lambda function, which fetches the job's artifacts and stores them in AWS for monitoring and analysis.</li>
+        <li><strong>Infrastructure as code.</strong> All AWS resources are defined and deployed with Terraform, so the setup is consistent and repeatable across environments.</li>
+      </ol>
+    </div>
+
+    <div class="field">
+      <h2>Tools and Technologies</h2>
+      <div class="tags">
+        <span class="tag">dbt Cloud</span>
+        <span class="tag">AWS Lambda</span>
+        <span class="tag">AWS Step Functions</span>
+        <span class="tag">Webhooks</span>
+        <span class="tag">Terraform</span>
+        <span class="tag">Python</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Impact</h2>
+      <div class="vp-box">
+        Every scheduled dbt run is now recorded automatically, so the team can track run history, spot failed
+        tests quickly, and trace lineage without manual work.
+        <!-- EDIT: add a specific result if you can share one, such as time saved or faster failure detection -->
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Connection to AI</h2>
+      <p>
+        Machine learning models are only as reliable as the data that feeds them. Knowing exactly which
+        transformations ran, which data quality tests passed, and where each table came from is the kind of
+        observability and lineage that trustworthy AI depends on. This project is the foundation work that lets
+        teams answer "can we trust this data?" before a model is trained on it.
+      </p>
+    </div>
+
+  </div>
+</main>
+
+<footer>© 2026 Deeksha Gunde</footer>
+
+</body>
+</html>

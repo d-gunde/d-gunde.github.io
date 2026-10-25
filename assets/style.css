@@ -161,3 +161,18 @@ details pre { white-space: pre-wrap; font-size: .85rem; background: #f8fafc; pad
 .btn-dark { background: var(--navy); color: #fff; }
 .btn-dark:hover { background: var(--navy-2); }
 .artifact-visual img { max-height: 560px; width: auto; }
+
+/* ---------- Hero photo ---------- */
+.hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+.hero-text { flex: 1; }
+.avatar { position: relative; flex-shrink: 0; width: 220px; height: 220px; border-radius: 50%;
+  background: var(--navy-2); border: 4px solid var(--accent); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.avatar span { font-size: 3.5rem; font-weight: 700; color: var(--accent); }
+.avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.diagram { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; }
+.diagram svg { width: 100%; height: auto; display: block; }
+@media (max-width: 640px) {
+  .hero-inner { flex-direction: column-reverse; align-items: flex-start; }
+  .avatar { width: 130px; height: 130px; }
+  .avatar span { font-size: 2.2rem; }
+}

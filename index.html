@@ -17,6 +17,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#artifacts">Artifacts</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -24,7 +25,8 @@
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="home">
-  <div class="container">
+  <div class="container hero-inner">
+    <div class="hero-text">
     <h1>Deeksha Gunde</h1>
     <p class="tagline">Analytics Engineer | Building the Data Foundations AI Runs On</p>
     <p>
@@ -35,6 +37,12 @@
     </p>
     <a class="btn btn-primary" href="#artifacts">View Artifacts</a>
     <a class="btn btn-outline" href="assets/files/resume.pdf">Download Resume</a>
+      </div>
+    <div class="avatar" aria-label="Profile photo">
+      <span>DG</span>
+      <!-- Save a square headshot as assets/img/profile.jpg and it appears here automatically -->
+      <img src="assets/img/profile.jpg" alt="Deeksha Gunde" onerror="this.remove()">
+    </div>
   </div>
 </header>
 
@@ -178,6 +186,28 @@
   </div>
 </section>
 
+<!-- ============ PROFESSIONAL PROJECTS ============ -->
+<section id="projects">
+  <div class="container">
+    <h2>Professional Projects</h2>
+    <p class="section-intro">Work outside the course that shows the data foundations behind reliable AI. Details are kept general to respect confidentiality.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="label">Data Engineering</div>
+        <h3>dbt Cloud Artifacts Pipeline</h3>
+        <div class="tags"><span class="tag">dbt Cloud</span><span class="tag">AWS Lambda</span><span class="tag">Terraform</span></div>
+        <p>An event-driven pipeline that captures dbt Cloud job artifacts in AWS after every scheduled run, giving the team a record of model runs, tests, and lineage.</p>
+        <a class="link" href="projects/project-1.html">View Project →</a>
+      </div>
+      <div class="card placeholder">
+        <div class="label">Project 2</div>
+        <h3>Coming soon</h3>
+        <p>Another pipeline, app, or data model.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ CONTACT ============ -->
 <section class="contact" id="contact">
   <div class="container">
@@ -185,7 +215,7 @@
     <p>Open to conversations about data engineering, analytics, and applied AI.</p>
     <a class="btn btn-outline" href="mailto:deekshagunde2022@gmail.com">Email</a>
     <a class="btn btn-outline" href="https://www.linkedin.com/in/deekshagunde/" target="_blank" rel="noopener">LinkedIn</a>
-    <a class="btn btn-outline" href="https://github.com/your-username">GitHub</a>  <!-- EDIT -->
+    <a class="btn btn-outline" href="https://github.com/d-gunde">GitHub</a>  
   </div>
 </section>
 
