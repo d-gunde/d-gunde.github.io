@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Machine Learning or Deep Learning? A Decision Guide | Deeksha Gunde</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="artifact-header">
+  <div class="container">
+    <a class="back" href="../index.html#artifacts">← Back to Portfolio</a>
+    <h1>Machine Learning or Deep Learning? A Decision Guide From Two Real Projects</h1>
+    <p>AIML-500 · Workshop 2 · Machine Learning vs. Deep Learning · October 2026</p>
+  </div>
+</header>
+
+<main class="artifact-body">
+  <div class="container">
+
+    <div class="diagram">
+      <svg viewBox="0 0 900 360" role="img" aria-label="Decision flow: start with what your data looks like. Structured tables with known features and a need to explain results point to traditional machine learning, for example retail demand forecasting. Unstructured text, images, or audio where meaning depends on context point to deep learning, for example sentiment and text classification.">
+        <defs>
+          <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0f1e33"/></marker>
+        </defs>
+        <rect width="900" height="360" fill="#ffffff"/>
+        <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+          <rect x="300" y="20" width="300" height="60" rx="10" fill="#0f1e33"/>
+          <text x="450" y="47" fill="#ffffff" font-size="15" font-weight="700">What does your data look like?</text>
+          <text x="450" y="67" fill="#cbd5e1" font-size="13">Start here, not with the algorithm</text>
+
+          <rect x="40" y="130" width="360" height="90" rx="10" fill="#ecfdf5" stroke="#0d9488"/>
+          <text x="220" y="158" fill="#0f1e33" font-size="14" font-weight="700">Structured tables</text>
+          <text x="220" y="180" fill="#475569" font-size="13">Features are known (price, date, region)</text>
+          <text x="220" y="200" fill="#475569" font-size="13">People must understand each result</text>
+
+          <rect x="500" y="130" width="360" height="90" rx="10" fill="#f1f5f9" stroke="#0f1e33"/>
+          <text x="680" y="158" fill="#0f1e33" font-size="14" font-weight="700">Unstructured text, images, audio</text>
+          <text x="680" y="180" fill="#475569" font-size="13">Meaning depends on context</text>
+          <text x="680" y="200" fill="#475569" font-size="13">Features are hard to define by hand</text>
+
+          <rect x="40" y="265" width="360" height="72" rx="10" fill="#0d9488"/>
+          <text x="220" y="295" fill="#ffffff" font-size="15" font-weight="700">Traditional machine learning</text>
+          <text x="220" y="317" fill="#ecfdf5" font-size="13">Example: retail demand forecasting</text>
+
+          <rect x="500" y="265" width="360" height="72" rx="10" fill="#0f1e33"/>
+          <text x="680" y="295" fill="#ffffff" font-size="15" font-weight="700">Deep learning</text>
+          <text x="680" y="317" fill="#cbd5e1" font-size="13">Example: sentiment and text classification</text>
+        </g>
+        <g stroke="#0f1e33" stroke-width="2" fill="none" marker-end="url(#ar2)">
+          <path d="M380,80 L260,126"/>
+          <path d="M520,80 L640,126"/>
+          <line x1="220" y1="220" x2="220" y2="261"/>
+          <line x1="680" y1="220" x2="680" y2="261"/>
+        </g>
+      </svg>
+    </div>
+    <p class="artifact-links" style="color:var(--muted);font-size:.9rem;">The decision flow this guide follows, using two problems from my own analytics engineering work.</p>
+
+    <div class="field">
+      <h2>Introduction</h2>
+      <p>
+        With so much attention on deep learning and large language models, it is easy to assume the newest model
+        is always the best choice. In practice, choosing the wrong approach costs time, money, and trust. This guide
+        uses two real problems from my work as an analytics engineer to show how the shape of the data, the need for
+        explanation, and the business context decide whether traditional machine learning or deep learning is the
+        better fit.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>Description</h2>
+      <p>
+        A side-by-side case study of two applications, each matched to a common machine learning or deep learning example. For each
+        one, I explain why the chosen approach fits the problem and why the other approach does not. The page ends
+        with a short checklist that any data team can use before starting an AI or ML project.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>Objective</h2>
+      <p>
+        I wanted to move beyond textbook examples like spam filters and show how the difference between machine
+        learning and deep learning plays out in real data work. My goal was to give teams a practical way to make this
+        decision, grounded in projects I have actually supported.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>Process</h2>
+      <ol>
+        <li><strong>Matched common ML and DL examples to my own work.</strong> House price prediction with linear regression is a classic machine learning example, and it maps to retail demand forecasting. Natural language processing with Transformer models is a classic deep learning example, and it maps to my sentiment and text classification workflows using Snowflake Cortex LLM functions.</li>
+        <li><strong>Compared the data and the decision behind each problem.</strong> I looked at what the data looks like, who uses the results, and how much they need to understand them.</li>
+        <li><strong>Checked my reasoning against published evidence.</strong> In the M5 forecasting competition, which used Walmart sales data, the top methods were mostly LightGBM, a traditional ML algorithm trained on hand-built features such as calendar, price, and promotions (Makridakis et al., 2022).</li>
+        <li><strong>Turned the analysis into a reusable guide.</strong> I adapted my course report for a professional audience, replacing academic structure with a decision flow, a comparison table, and a checklist.</li>
+      </ol>
+
+      <h3 style="color:var(--navy);margin-top:26px;">Case 1: Retail demand forecasting → traditional machine learning</h3>
+      <p><strong>Why ML fits:</strong> Demand data is structured, with one row per product, store, and week. Retail experts already know what drives sales, so those factors become features. Planners act on the forecast to order inventory, so they need to see why a number changed.</p>
+      <p><strong>Why deep learning does not fit:</strong> Its main strength, learning features from raw data, adds little when the features are already known and stored in clean tables. It needs more data and computing power, and its predictions are hard to explain to the people who rely on them.</p>
+      <div class="vp-box"><strong>From my work:</strong> On a demand planning project, our data feeds used a different fiscal calendar from the business team's reports, so totals did not match until we aligned them. In ML, people define features like the fiscal week, and one wrong feature changes every result. That is also why explainability matters so much here.</div>
+
+      <h3 style="color:var(--navy);margin-top:26px;">Case 2: Sentiment and text classification → deep learning</h3>
+      <p><strong>Why deep learning fits:</strong> Free-text comments are unstructured, and meaning depends on context. "Not bad at all" is positive, and "great, another delay" is negative. Transformer-based large language models read each word in the context of the sentence (Vaswani et al., 2017), and Snowflake Cortex lets teams run them with a SQL function at warehouse scale.</p>
+      <p><strong>Why traditional ML does not fit:</strong> A person would have to hand-build features such as keyword counts. These miss negation and sarcasm, need constant updating as language changes, and require large sets of hand-labeled examples.</p>
+
+      <h3 style="color:var(--navy);margin-top:26px;">Side-by-side comparison</h3>
+      <div class="table-wrap">
+        <table class="result-table">
+          <tr><th>Factor</th><th>Demand forecasting (ML)</th><th>Text sentiment (DL)</th></tr>
+          <tr><td>Type of data</td><td>Structured tables of sales, prices, dates</td><td>Unstructured free text</td></tr>
+          <tr><td>Who defines the features</td><td>People, from business knowledge</td><td>The model, from raw text</td></tr>
+          <tr><td>Need to explain results</td><td>High: planners act on every number</td><td>Moderate: results can be spot-checked</td></tr>
+          <tr><td>Data and compute needed</td><td>Modest; retrains quickly</td><td>Large; uses pretrained models</td></tr>
+          <tr><td>Why the other approach fails</td><td>DL adds cost and is hard to explain</td><td>Hand-built features miss context</td></tr>
+        </table>
+      </div>
+
+      <h3 style="color:var(--navy);margin-top:26px;">A checklist before you choose</h3>
+      <ol>
+        <li>Is my data mostly structured tables, or text, images, and audio?</li>
+        <li>Do I already know which features matter?</li>
+        <li>Will people need to understand why the model made each prediction?</li>
+        <li>How much labeled data and computing power do I have?</li>
+        <li>Is there a pretrained model, such as an LLM, that already understands this kind of data?</li>
+      </ol>
+      <p>Mostly structured data, known features, and a need to explain point to traditional ML. Unstructured data, meaning that depends on context, and an available pretrained model point to deep learning.</p>
+    </div>
+
+    <div class="field">
+      <h2>Tools and Technologies Used</h2>
+      <div class="tags">
+        <span class="tag">Machine learning (regression, LightGBM)</span>
+        <span class="tag">Deep learning (Transformers, LLMs)</span>
+        <span class="tag">Snowflake Cortex</span>
+        <span class="tag">Snowflake</span>
+        <span class="tag">dbt</span>
+        <span class="tag">Claude (drafting support)</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Value Proposition</h2>
+      <div class="vp-box">
+        This guide helps data teams and business leaders choose between traditional machine learning and deep
+        learning based on their data and decisions, not on hype, so they avoid overbuilding and deliver models
+        people can trust.
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Unique Value</h2>
+      <p>
+        Most comparisons of machine learning and deep learning use generic examples. This one comes from the data
+        layer: I build the feeds and features these models depend on, and I have used LLM functions in production.
+        That perspective shows something generic guides miss: the choice often depends less on the algorithm and more
+        on the data, its features, and the people who will act on the results.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>Relevance</h2>
+      <p>
+        Organizations are under pressure to "use AI" everywhere. Analytics engineers, data scientists, and managers
+        regularly have to decide whether a problem needs a simple, explainable model or a deep learning model. This
+        guide gives them a quick, evidence-based way to make that call, and it shows how good data engineering, such
+        as well-defined features and consistent calendars, supports both approaches.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>References</h2>
+      <ul>
+        <li>LeCun, Y., Bengio, Y., &amp; Hinton, G. (2015). Deep learning. <em>Nature, 521</em>(7553), 436–444. <a href="https://doi.org/10.1038/nature14539">https://doi.org/10.1038/nature14539</a></li>
+        <li>Makridakis, S., Spiliotis, E., &amp; Assimakopoulos, V. (2022). M5 accuracy competition: Results, findings, and conclusions. <em>International Journal of Forecasting, 38</em>(4), 1346–1364. <a href="https://doi.org/10.1016/j.ijforecast.2021.11.013">https://doi.org/10.1016/j.ijforecast.2021.11.013</a></li>
+        <li>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., &amp; Polosukhin, I. (2017). Attention is all you need. <em>Advances in Neural Information Processing Systems, 30</em>. <a href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a></li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+<footer>© 2026 Deeksha Gunde</footer>
+
+</body>
+</html>
