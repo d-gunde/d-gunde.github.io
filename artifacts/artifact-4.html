@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Is Your Data Ready for Machine Learning? | Deeksha Gunde</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="artifact-header">
+  <div class="container">
+    <a class="back" href="../index.html#artifacts">← Back to Portfolio</a>
+    <h1>Is Your Data Ready for Machine Learning? A Checklist From Three Real-World Scenarios</h1>
+    <p>AIML-500 · Data Challenges in Machine Learning · November 2026</p>
+  </div>
+</header>
+
+<main class="artifact-body">
+  <div class="container">
+
+    <div class="diagram">
+      <svg viewBox="0 0 900 300" role="img" aria-label="The machine learning data lifecycle in four stages: collect, prepare, train and evaluate, and deploy and monitor. Each stage lists its main data risks. A return arrow shows that monitoring feeds back into collection.">
+        <defs>
+          <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0f1e33"/></marker>
+        </defs>
+        <rect width="900" height="300" fill="#ffffff"/>
+        <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+          <rect x="20" y="40" width="190" height="150" rx="10" fill="#ecfdf5" stroke="#0d9488"/>
+          <text x="115" y="70" fill="#0f1e33" font-size="15" font-weight="700">1. Collect</text>
+          <text x="115" y="100" fill="#475569" font-size="13">Availability</text>
+          <text x="115" y="122" fill="#475569" font-size="13">Bias in sources</text>
+          <text x="115" y="144" fill="#475569" font-size="13">Privacy rules</text>
+          <text x="115" y="166" fill="#475569" font-size="13">Integration</text>
+
+          <rect x="240" y="40" width="190" height="150" rx="10" fill="#ecfdf5" stroke="#0d9488"/>
+          <text x="335" y="70" fill="#0f1e33" font-size="15" font-weight="700">2. Prepare</text>
+          <text x="335" y="100" fill="#475569" font-size="13">Duplicates</text>
+          <text x="335" y="122" fill="#475569" font-size="13">Missing and noisy data</text>
+          <text x="335" y="144" fill="#475569" font-size="13">Label quality</text>
+          <text x="335" y="166" fill="#475569" font-size="13">Formats</text>
+
+          <rect x="460" y="40" width="190" height="150" rx="10" fill="#f1f5f9" stroke="#0f1e33"/>
+          <text x="555" y="70" fill="#0f1e33" font-size="15" font-weight="700">3. Train and evaluate</text>
+          <text x="555" y="100" fill="#475569" font-size="13">Class imbalance</text>
+          <text x="555" y="122" fill="#475569" font-size="13">Leakage across splits</text>
+          <text x="555" y="144" fill="#475569" font-size="13">Subgroup errors</text>
+          <text x="555" y="166" fill="#475569" font-size="13">Versioning</text>
+
+          <rect x="680" y="40" width="200" height="150" rx="10" fill="#0f1e33"/>
+          <text x="780" y="70" fill="#ffffff" font-size="15" font-weight="700">4. Deploy and monitor</text>
+          <text x="780" y="100" fill="#cbd5e1" font-size="13">Data drift</text>
+          <text x="780" y="122" fill="#cbd5e1" font-size="13">Real-time noise</text>
+          <text x="780" y="144" fill="#cbd5e1" font-size="13">Scale and cost</text>
+          <text x="780" y="166" fill="#cbd5e1" font-size="13">Security</text>
+
+          <text x="450" y="280" fill="#475569" font-size="13">Monitoring results feed back into the next round of data collection</text>
+        </g>
+        <g stroke="#0f1e33" stroke-width="2" fill="none" marker-end="url(#ar4)">
+          <line x1="210" y1="115" x2="236" y2="115"/>
+          <line x1="430" y1="115" x2="456" y2="115"/>
+          <line x1="650" y1="115" x2="676" y2="115"/>
+          <path d="M780,190 L780,240 L115,240 L115,194" stroke-dasharray="6 5"/>
+        </g>
+      </svg>
+    </div>
+    <p class="artifact-links" style="color:var(--muted);font-size:.9rem;">Where common data challenges show up across the machine learning lifecycle.</p>
+
+    <div class="field">
+      <h2>Introduction</h2>
+      <p>
+        Most machine learning projects that fail do not fail because of the algorithm. They fail because of the
+        data: duplicates that inflate test scores, historical labels that carry old biases, or data that cannot be
+        shared safely. As an analytics engineer, checking data before anyone relies on it is my everyday job. This
+        guide applies that same habit to machine learning.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>Description</h2>
+      <p>
+        A practical data readiness guide built from three realistic scenarios: cleaning 800,000 customer reviews,
+        scaling a résumé-screening model to a new country, and two hospitals training a model together without
+        sharing patient records. For each one, I explain what can go wrong, what to check, and how to validate the
+        result. The page ends with a checklist teams can use before training any model.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>Objective</h2>
+      <p>
+        I wanted to show that preparing data for machine learning is a series of decisions, not a cleanup step.
+        My goal was to give data teams a short, reusable way to spot data quality, bias, and privacy problems
+        before they become model problems.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>Process</h2>
+      <ol>
+        <li><strong>Worked through three scenarios with an AI coach.</strong> I proposed an approach for each scenario, answered follow-up questions, and revised my thinking when a probing question showed a gap.</li>
+        <li><strong>Mapped 14 common data challenges to the ML lifecycle.</strong> I grouped challenges like drift, imbalance, labeling and interoperability by the stage where they usually appear, shown in the diagram above.</li>
+        <li><strong>Connected each scenario to my own work.</strong> I added examples from data pipelines I have built, where the same problems show up outside of machine learning.</li>
+        <li><strong>Turned the lessons into a checklist.</strong> I kept only the questions a team can actually answer before training a model.</li>
+      </ol>
+
+      <h3 style="color:var(--navy);margin-top:26px;">Scenario 1: Cleaning 800,000 customer reviews</h3>
+      <p><strong>What can go wrong:</strong> Duplicates, missing fields, mixed languages, emoji-only reviews, bot spam, and sentiment labels taken from star ratings. Near-duplicate reviews in both the training and test sets make the model look better than it is.</p>
+      <p><strong>What I learned:</strong> My first instinct was to translate every review into one language. I revised that after realizing it would remove meaning and underrepresent the customers the model most needs to understand. The better rule is to normalize the format, not the meaning.</p>
+      <div class="vp-box"><strong>From my work:</strong> I profile data before changing anything, then compare the same counts after cleaning. Measuring reviews by language and sentiment before and after cleaning shows whether a whole group was quietly removed.</div>
+
+      <h3 style="color:var(--navy);margin-top:26px;">Scenario 2: Scaling a résumé-screening model to a new country</h3>
+      <p><strong>What can go wrong:</strong> The model learned from ten years of one company’s hiring decisions. Past hiring is not the same as job success, and the model can copy old bias through résumé vocabulary even when gender or region is never a column. A similar problem led Amazon to stop using an experimental recruiting tool that penalized résumés mentioning women’s activities (Dastin, 2018).</p>
+      <p><strong>What I learned:</strong> Overall accuracy can hide failure. If 90% of applicants are rejected, a model that rejects everyone scores 90% accuracy while finding no good candidates. Results need to be broken down by error type and by group, and tested in a small pilot before scaling.</p>
+
+      <h3 style="color:var(--navy);margin-top:26px;">Scenario 3: Two hospitals building one model</h3>
+      <p><strong>What can go wrong:</strong> Sensitive patient records, different coding practices, and neither hospital willing to move raw data.</p>
+      <p><strong>What I learned:</strong> Federated learning keeps records inside each hospital and shares model updates instead (McMahan et al., 2017). A common data model maps both hospitals’ codes to the same definitions. But updates can still leak information or be tampered with, so the design needs anomaly checks on updates, secure aggregation, clear governance, and testing at each hospital separately.</p>
+      <div class="vp-box"><strong>From my work:</strong> On a demand planning project, two teams used different fiscal calendars and their numbers never matched. Agreeing on shared definitions first, like a common data model, is what fixed it.</div>
+
+      <h3 style="color:var(--navy);margin-top:26px;">Common problems and quick fixes</h3>
+      <div class="table-wrap">
+        <table class="result-table">
+          <tr><th>Problem</th><th>What it does to a model</th><th>A common fix</th></tr>
+          <tr><td>Duplicates</td><td>Wastes training time and inflates test scores</td><td>Similarity-based record matching; keep related records in one split</td></tr>
+          <tr><td>Missing data</td><td>Gaps the model cannot learn from</td><td>Imputation, deletion, or a “was missing” flag</td></tr>
+          <tr><td>Noisy or inconsistent data</td><td>Learns wrong patterns, overfits</td><td>Standard formats, validation rules, outlier checks</td></tr>
+          <tr><td>Class imbalance</td><td>Ignores the minority class</td><td>Oversampling such as SMOTE (Chawla et al., 2002), class weights</td></tr>
+          <tr><td>Biased history</td><td>Repeats unfair past decisions</td><td>Audit labels, check subgroup errors, human review</td></tr>
+          <tr><td>Data drift</td><td>Accuracy drops after launch</td><td>Monitoring and scheduled retraining</td></tr>
+        </table>
+      </div>
+
+      <h3 style="color:var(--navy);margin-top:26px;">A checklist before you train</h3>
+      <ol>
+        <li>Do I have a saved, untouched copy of the raw data and a record of where it came from?</li>
+        <li>Have I profiled the data before cleaning it, and compared it again afterward?</li>
+        <li>Are the labels trustworthy, or do they carry past decisions I do not want to repeat?</li>
+        <li>Could related or duplicate records end up in both the training and test sets?</li>
+        <li>Will I check results by group and by error type, not just overall accuracy?</li>
+        <li>Who is allowed to use this data, for what purpose, and how is access protected?</li>
+        <li>How will I notice if the data changes after the model is deployed?</li>
+      </ol>
+      <p>Documenting these answers alongside the dataset is good practice, in the spirit of datasheets for datasets (Gebru et al., 2021).</p>
+    </div>
+
+    <div class="field">
+      <h2>Tools and Technologies Used</h2>
+      <div class="tags">
+        <span class="tag">Data quality and cleaning</span>
+        <span class="tag">Bias and fairness evaluation</span>
+        <span class="tag">Federated learning</span>
+        <span class="tag">Data governance</span>
+        <span class="tag">Claude (AI coaching and drafting support)</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Value Proposition</h2>
+      <div class="vp-box">
+        This guide helps data teams catch data quality, bias, and privacy problems before training a model,
+        so they spend less time fixing models that were never going to work and more time building ones people can trust.
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Unique Value</h2>
+      <p>
+        Most guides to machine learning start at the model. This one starts at the data, from the point of view of
+        someone who builds data pipelines every day. It shows that the habits analytics engineers already use, like
+        profiling, validating, and agreeing on shared definitions, are exactly what makes machine learning reliable.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>Relevance</h2>
+      <p>
+        Every organization adopting AI depends on the quality of its data. Data engineers, analysts, and
+        data scientists need a shared way to decide whether data is ready. This checklist works for any team,
+        whether they are training their first model or reviewing one that is already in production.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>References</h2>
+      <ul>
+        <li>Chawla, N. V., Bowyer, K. W., Hall, L. O., &amp; Kegelmeyer, W. P. (2002). SMOTE: Synthetic minority over-sampling technique. <em>Journal of Artificial Intelligence Research, 16</em>, 321–357. <a href="https://doi.org/10.1613/jair.953">https://doi.org/10.1613/jair.953</a></li>
+        <li>Dastin, J. (2018, October 10). Amazon scraps secret AI recruiting tool that showed bias against women. <em>Reuters</em>. <a href="https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G">https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G</a></li>
+        <li>Gebru, T., Morgenstern, J., Vecchione, B., Vaughan, J. W., Wallach, H., Daumé III, H., &amp; Crawford, K. (2021). Datasheets for datasets. <em>Communications of the ACM, 64</em>(12), 86–92. <a href="https://doi.org/10.1145/3458723">https://doi.org/10.1145/3458723</a></li>
+        <li>McMahan, B., Moore, E., Ramage, D., Hampson, S., &amp; Agüera y Arcas, B. (2017). Communication-efficient learning of deep networks from decentralized data. <em>Proceedings of the 20th International Conference on Artificial Intelligence and Statistics, 54</em>, 1273–1282. <a href="https://proceedings.mlr.press/v54/mcmahan17a.html">https://proceedings.mlr.press/v54/mcmahan17a.html</a></li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+<footer>© 2026 Deeksha Gunde</footer>
+
+</body>
+</html>
