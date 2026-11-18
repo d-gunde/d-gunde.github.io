@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../assets/style.css">
   <style>
     @media print {
-      .back, .artifact-links { display: none; }
+      .back, .artifact-links, .deliverable { display: none; }
       .artifact-header { background: none !important; color: #000; }
       .artifact-header h1, .artifact-header p { color: #000; }
     }
@@ -28,19 +28,14 @@
 <main class="artifact-body">
   <div class="container">
 
-    <div class="field">
-      <h2>Deliverable: Data Readiness Checklist</h2>
-      <p>A one-page, printable checklist that a data team fills in before training any machine learning model. It covers 16 checks across four stages, five red flags, and a final readiness decision.</p>
+    <div class="deliverable">
       <div class="artifact-visual">
         <img src="../assets/img/data-readiness-checklist.jpg" alt="Data Readiness Checklist for Machine Learning: 16 checkboxes across Collect, Prepare, Train and evaluate, and Deploy and monitor, with a red flags list and a readiness decision box">
       </div>
       <p class="artifact-links">
         <a class="btn btn-dark" href="../assets/files/data-readiness-checklist.pdf" target="_blank" rel="noopener">Download the checklist (PDF)</a>
-        <button class="btn btn-dark" style="font:inherit;font-weight:600;border:none;cursor:pointer;" onclick="window.print()">Save this page as PDF</button>
       </p>
     </div>
-
-    <h2 style="color:var(--navy);margin:40px 0 8px;">About This Artifact</h2>
 
     <div class="diagram">
       <svg viewBox="0 0 900 300" role="img" aria-label="The machine learning data lifecycle in four stages: collect, prepare, train and evaluate, and deploy and monitor. Each stage lists its main data risks. A return arrow shows that monitoring feeds back into collection.">
@@ -213,6 +208,10 @@
         <li>McMahan, B., Moore, E., Ramage, D., Hampson, S., &amp; Agüera y Arcas, B. (2017). Communication-efficient learning of deep networks from decentralized data. <em>Proceedings of the 20th International Conference on Artificial Intelligence and Statistics, 54</em>, 1273–1282. <a href="https://proceedings.mlr.press/v54/mcmahan17a.html">https://proceedings.mlr.press/v54/mcmahan17a.html</a></li>
       </ul>
     </div>
+
+    <p class="artifact-links" style="margin-top:40px;">
+      <button class="btn btn-dark" style="font:inherit;font-weight:600;border:none;cursor:pointer;" onclick="window.print()">Save this page as PDF</button>
+    </p>
 
   </div>
 </main>
