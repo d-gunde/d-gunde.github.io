@@ -7,6 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    @media print {
+      .back, .artifact-links { display: none; }
+      .artifact-header { background: none !important; color: #000; }
+      .artifact-header h1, .artifact-header p { color: #000; }
+    }
+  </style>
 </head>
 <body>
 
@@ -20,6 +27,17 @@
 
 <main class="artifact-body">
   <div class="container">
+
+    <div class="field">
+      <h2>Deliverable: Machine Learning vs. Deep Learning Report</h2>
+      <p>A 7-page APA research report comparing two applications from my analytics engineering work: retail demand forecasting with traditional machine learning, and text sentiment classification with deep learning.</p>
+      <p class="artifact-links">
+        <a class="btn btn-dark" href="../assets/files/ml-vs-dl-report.pdf" target="_blank" rel="noopener">Read the full report (PDF)</a>
+        <button class="btn btn-dark" style="font:inherit;font-weight:600;border:none;cursor:pointer;" onclick="window.print()">Save this page as PDF</button>
+      </p>
+    </div>
+
+    <h2 style="color:var(--navy);margin:40px 0 8px;">About This Artifact</h2>
 
     <div class="diagram">
       <svg viewBox="0 0 900 360" role="img" aria-label="Decision flow: start with what your data looks like. Structured tables with known features and a need to explain results point to traditional machine learning, for example retail demand forecasting. Unstructured text, images, or audio where meaning depends on context point to deep learning, for example sentiment and text classification.">
