@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cross-Project dbt Dependencies on AWS MWAA | Deeksha Gunde</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="artifact-header">
+  <div class="container">
+    <a class="back" href="../index.html#projects">← Back to Portfolio</a>
+    <h1>Cross-Project dbt Dependencies on AWS MWAA</h1>
+    <p>Professional Project · Data Engineering · Published on DEV Community, November 2024</p>
+  </div>
+</header>
+
+<main class="artifact-body">
+  <div class="container">
+
+    <p class="artifact-links">
+      <a class="btn btn-dark" href="https://dev.to/deekshagunde/cross-project-dependencies-handling-with-dbt-in-aws-mwaa-cn1" target="_blank" rel="noopener">Read the full article on DEV</a>
+    </p>
+
+    <div class="diagram">
+      <svg viewBox="0 0 960 260" role="img" aria-label="Final design: Terraform provisions an AWS MWAA environment and an S3 bucket. The parent dbt project is packaged into plugins.zip in S3. MWAA loads the plugin, so the child dbt project can reference the parent as a local package when Airflow runs dbt, with no SSH keys needed.">
+        <defs>
+          <marker id="arp2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0f1e33"/></marker>
+        </defs>
+        <rect width="960" height="260" fill="#ffffff"/>
+        <g font-family="Inter, Arial, sans-serif" font-size="14" text-anchor="middle">
+          <rect x="20" y="40" width="180" height="70" rx="10" fill="#f1f5f9" stroke="#0f1e33"/>
+          <text x="110" y="70" fill="#0f1e33" font-weight="700">Parent dbt project</text>
+          <text x="110" y="92" fill="#475569">shared models, macros</text>
+
+          <rect x="260" y="40" width="180" height="70" rx="10" fill="#ecfdf5" stroke="#0d9488"/>
+          <text x="350" y="70" fill="#0f1e33" font-weight="700">plugins.zip in S3</text>
+          <text x="350" y="92" fill="#475569">packaged by CI/CD</text>
+
+          <rect x="500" y="40" width="200" height="70" rx="10" fill="#0f1e33"/>
+          <text x="600" y="70" fill="#ffffff" font-weight="700">AWS MWAA (Airflow)</text>
+          <text x="600" y="92" fill="#cbd5e1">loads plugin on startup</text>
+
+          <rect x="760" y="40" width="180" height="70" rx="10" fill="#ecfdf5" stroke="#0d9488"/>
+          <text x="850" y="70" fill="#0f1e33" font-weight="700">Child dbt project</text>
+          <text x="850" y="92" fill="#475569">local: package reference</text>
+
+          <rect x="260" y="170" width="440" height="56" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="5 4"/>
+          <text x="480" y="196" fill="#0f1e33" font-weight="700">Terraform</text>
+          <text x="480" y="215" fill="#475569">provisions MWAA, S3 paths for DAGs, requirements, startup script and plugins</text>
+        </g>
+        <g stroke="#0f1e33" stroke-width="2" fill="none" marker-end="url(#arp2)">
+          <line x1="200" y1="75" x2="256" y2="75"/>
+          <line x1="440" y1="75" x2="496" y2="75"/>
+          <line x1="700" y1="75" x2="756" y2="75"/>
+          <line x1="480" y1="170" x2="480" y2="114"/>
+        </g>
+      </svg>
+    </div>
+    <p class="artifact-links" style="color:var(--muted);font-size:.9rem;">The final design described in the article.</p>
+
+    <div class="field">
+      <h2>Overview</h2>
+      <p>
+        A technical article I wrote and published on DEV Community about running multiple dbt projects on
+        Amazon Managed Workflows for Apache Airflow (MWAA), where models in one project depend on models in
+        another. It walks through a failed first attempt, the workaround that worked, and the trade-offs.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>The Problem</h2>
+      <p>
+        Splitting a large dbt project into smaller ones keeps teams independent, but the child projects still
+        need to reference shared models from a parent project. The usual approach, pulling the parent from a
+        private Git repository with <code>dbt deps</code>, failed inside MWAA with a
+        <code>Permission denied (publickey)</code> error, and storing the SSH key in AWS Secrets Manager did not fix it.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>My Approach</h2>
+      <ol>
+        <li><strong>Provisioned MWAA with Terraform.</strong> I used the <code>aws-ia/mwaa/aws</code> module and linked S3 paths for DAGs, requirements, a startup script and plugins.</li>
+        <li><strong>Tried a virtual environment first.</strong> A <code>PythonVirtualenvOperator</code> task ran <code>dbt deps</code> and <code>dbt run</code>, with the parent project listed as a Git package. This hit the SSH authentication error.</li>
+        <li><strong>Packaged the parent project as a plugin.</strong> I zipped the parent dbt project into <code>plugins.zip</code>, so MWAA copies it onto every Airflow worker.</li>
+        <li><strong>Pointed the child project at the local copy.</strong> The child project’s <code>packages.yml</code> references the parent with a <code>local:</code> path, so no Git access is needed at run time.</li>
+        <li><strong>Documented the trade-offs.</strong> The approach adds CI/CD steps, and I suggested <code>KubernetesPodOperator</code> as an alternative worth comparing.</li>
+      </ol>
+    </div>
+
+    <div class="field">
+      <h2>Tools and Technologies</h2>
+      <div class="tags">
+        <span class="tag">dbt</span>
+        <span class="tag">AWS MWAA (Apache Airflow)</span>
+        <span class="tag">Terraform</span>
+        <span class="tag">Amazon S3</span>
+        <span class="tag">Python</span>
+        <span class="tag">Technical writing</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Impact</h2>
+      <div class="vp-box">
+        Removed the need for SSH keys at run time, kept the parent project’s models and macros available locally
+        on Airflow, and gave a pattern that scales to more dbt projects and can be automated with Terraform and CI/CD.
+        Sharing it publicly helps other data engineers who run into the same MWAA limitation.
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Connection to AI</h2>
+      <p>
+        Machine learning teams depend on shared, well-tested data models, often owned by different teams.
+        Reliable cross-project dependencies mean a feature table used by a model is built from the same
+        trusted definitions as every report, which is the kind of consistency trustworthy AI needs.
+      </p>
+    </div>
+
+  </div>
+</main>
+
+<footer>© 2026 Deeksha Gunde</footer>
+
+</body>
+</html>

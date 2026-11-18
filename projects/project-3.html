@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automating a Secure AWS Client VPN With Terraform | Deeksha Gunde</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="artifact-header">
+  <div class="container">
+    <a class="back" href="../index.html#projects">← Back to Portfolio</a>
+    <h1>Automating a Secure AWS Client VPN With Terraform</h1>
+    <p>Professional Project · Cloud Infrastructure · Published on DEV Community, August 2024</p>
+  </div>
+</header>
+
+<main class="artifact-body">
+  <div class="container">
+
+    <p class="artifact-links">
+      <a class="btn btn-dark" href="https://dev.to/deekshagunde/automating-secure-vpn-setup-on-aws-with-terraform-1lp3" target="_blank" rel="noopener">Read the full article on DEV</a>
+    </p>
+
+    <div class="diagram">
+      <svg viewBox="0 0 960 270" role="img" aria-label="Architecture: a user's laptop runs the AWS VPN client with a client certificate and connects to an AWS Client VPN endpoint that uses mutual certificate authentication from AWS Certificate Manager and a security group. The endpoint is associated with a private subnet in the VPC, where a private Amazon MWAA environment runs. Terraform provisions the endpoint, subnet association and authorization rule.">
+        <defs>
+          <marker id="arp3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0f1e33"/></marker>
+        </defs>
+        <rect width="960" height="270" fill="#ffffff"/>
+        <rect x="430" y="20" width="510" height="130" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-dasharray="5 4"/>
+        <g font-family="Inter, Arial, sans-serif" font-size="14" text-anchor="middle">
+          <text x="685" y="40" fill="#475569" font-size="12">VPC</text>
+          <rect x="20" y="50" width="170" height="74" rx="10" fill="#f1f5f9" stroke="#0f1e33"/>
+          <text x="105" y="80" fill="#0f1e33" font-weight="700">User laptop</text>
+          <text x="105" y="102" fill="#475569">AWS VPN client + cert</text>
+
+          <rect x="230" y="50" width="170" height="74" rx="10" fill="#0f1e33"/>
+          <text x="315" y="80" fill="#ffffff" font-weight="700">Client VPN endpoint</text>
+          <text x="315" y="102" fill="#cbd5e1">mutual TLS auth</text>
+
+          <rect x="455" y="55" width="200" height="74" rx="10" fill="#ecfdf5" stroke="#0d9488"/>
+          <text x="555" y="85" fill="#0f1e33" font-weight="700">Private subnet</text>
+          <text x="555" y="107" fill="#475569">network association</text>
+
+          <rect x="715" y="55" width="200" height="74" rx="10" fill="#ecfdf5" stroke="#0d9488"/>
+          <text x="815" y="85" fill="#0f1e33" font-weight="700">Amazon MWAA</text>
+          <text x="815" y="107" fill="#475569">private web server access</text>
+
+          <rect x="230" y="185" width="170" height="60" rx="10" fill="#ffffff" stroke="#0f1e33"/>
+          <text x="315" y="210" fill="#0f1e33" font-weight="700">Certificate Manager</text>
+          <text x="315" y="229" fill="#475569">server + client certs</text>
+
+          <rect x="455" y="185" width="460" height="60" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="5 4"/>
+          <text x="685" y="210" fill="#0f1e33" font-weight="700">Terraform</text>
+          <text x="685" y="229" fill="#475569">endpoint, subnet link, access rule, per-environment variables</text>
+        </g>
+        <g stroke="#0f1e33" stroke-width="2" fill="none" marker-end="url(#arp3)">
+          <line x1="190" y1="87" x2="226" y2="87"/>
+          <line x1="400" y1="90" x2="451" y2="90"/>
+          <line x1="655" y1="92" x2="711" y2="92"/>
+          <line x1="315" y1="185" x2="315" y2="128"/>
+          <line x1="555" y1="185" x2="555" y2="133"/>
+        </g>
+      </svg>
+    </div>
+    <p class="artifact-links" style="color:var(--muted);font-size:.9rem;">The setup described in the article.</p>
+
+    <div class="field">
+      <h2>Overview</h2>
+      <p>
+        A technical article I wrote and published on DEV Community about automating an AWS Client VPN with
+        Terraform, so that a private Amazon MWAA (Apache Airflow) environment can only be reached through a
+        secure, certificate-based connection.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>The Problem</h2>
+      <p>
+        Our MWAA environment was set to private access, which meant users needed a VPN to reach the Airflow
+        web interface. Creating a Client VPN endpoint and its supporting pieces by hand is slow and easy to get
+        wrong, and the same steps have to be repeated for every environment.
+      </p>
+    </div>
+
+    <div class="field">
+      <h2>My Approach</h2>
+      <ol>
+        <li><strong>Set up certificates.</strong> I imported the server and client certificates into AWS Certificate Manager with the AWS CLI, for mutual certificate authentication.</li>
+        <li><strong>Defined the VPN endpoint in Terraform.</strong> An <code>aws_cloudformation_stack</code> resource creates the <code>AWS::EC2::ClientVpnEndpoint</code>, with the certificate ARNs read from <code>aws_acm_certificate</code> data sources.</li>
+        <li><strong>Connected it to the private network.</strong> <code>aws_ec2_client_vpn_network_association</code> links the endpoint to the private subnet where MWAA runs.</li>
+        <li><strong>Controlled access.</strong> <code>aws_ec2_client_vpn_authorization_rule</code> grants access to the VPC’s address range.</li>
+        <li><strong>Made it reusable.</strong> Region, VPC, subnets, security group and client address range are variables set in <code>terraform.tfvars</code>, so each environment is one <code>terraform apply</code> away.</li>
+        <li><strong>Documented the user side.</strong> The article shows how to download the client configuration, add the certificate and key to the <code>.ovpn</code> file, and connect with the AWS VPN client.</li>
+      </ol>
+    </div>
+
+    <div class="field">
+      <h2>Tools and Technologies</h2>
+      <div class="tags">
+        <span class="tag">Terraform</span>
+        <span class="tag">AWS Client VPN</span>
+        <span class="tag">Certificate Manager</span>
+        <span class="tag">Amazon VPC</span>
+        <span class="tag">AWS CloudFormation</span>
+        <span class="tag">Amazon MWAA</span>
+        <span class="tag">AWS CLI</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Impact</h2>
+      <div class="vp-box">
+        Turned a long, manual setup into a repeatable Terraform deployment, so every environment gets the same
+        secure VPN configuration, with less manual work and infrastructure that is easier to update and maintain.
+      </div>
+    </div>
+
+    <div class="field">
+      <h2>Connection to AI</h2>
+      <p>
+        AI and data pipelines often run on sensitive data, and the tools that orchestrate them should not be
+        open to the internet. Keeping orchestration like Airflow behind private, certificate-based access is part
+        of the security foundation that responsible AI systems rely on.
+      </p>
+    </div>
+
+  </div>
+</main>
+
+<footer>© 2026 Deeksha Gunde</footer>
+
+</body>
+</html>
